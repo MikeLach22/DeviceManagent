@@ -25,8 +25,7 @@ private ActivityMainBinding binding;
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home,
-                R.id.navigation_dashboard,
-                R.id.navigation_notifications,
+                R.id.navigation_devices,
                 R.id.navigation_settings
         ).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);

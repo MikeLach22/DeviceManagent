@@ -1,8 +1,10 @@
-package com.example.devicemanagement;
+package com.example.devicemanagement.ui;
 
 import android.os.Bundle;
 
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.example.devicemanagement.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
