@@ -2,6 +2,10 @@ package com.example.devicemanagement;
 
 import android.graphics.Picture;
 import android.media.Image;
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 
@@ -36,4 +40,5 @@ public class Device {
     public void deleteDevice() {
 
     }
+
 }
