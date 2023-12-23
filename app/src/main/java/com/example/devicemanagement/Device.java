@@ -1,5 +1,8 @@
 package com.example.devicemanagement;
 
+import android.graphics.Picture;
+import android.media.Image;
+
 import java.util.Date;
 
 public class Device {
@@ -12,9 +15,10 @@ public class Device {
     private String locationOfDevice;
     private String operatingInstructions;
     private String contactPartner;
-    private String picture;
+    private Image image;
 
-    public void addDevice(String name, String description, String serialNumber, Date purchaseDate, int warranty, String maintenanceStatus, String locationOfDevice, String operatingInstructions, String contactPartner, String picture) {
+
+    public void addDevice(String name, String description, String serialNumber, Date purchaseDate, int warranty, String maintenanceStatus, String locationOfDevice, String operatingInstructions, String contactPartner, Image image) {
         this.name = name;
         this.description = description;
         this.serialNumber = serialNumber;
@@ -24,8 +28,10 @@ public class Device {
         this.locationOfDevice = locationOfDevice;
         this.operatingInstructions = operatingInstructions;
         this.contactPartner = contactPartner;
-        this.picture = picture;
+        this.image = image;
     }
+
+
 
     public void deleteDevice() {
 
