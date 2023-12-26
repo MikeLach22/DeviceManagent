@@ -37,16 +37,35 @@ public class Database {
         DatabaseReference devicesReference = mDatabase.child(pathStringDevices);
         DatabaseReference objectsReference = mDatabase.child(pathStringObjects);
 
+/*
+        for (int i = 1; i <= 20; i++) {
+            Device d = new Device(i, "nameOfDevice" + i, "descriptionOfDevice" + i);
+            String id = "device" + d.getId();
+            mDatabase.child(pathStringDevices).child(id).setValue(d);
+        }
+*/
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 List<Device> devices = new ArrayList<>();
+
+                for (DataSnapshot deviceSnapshot : dataSnapshot.getChildren()) {
+                    Device device = deviceSnapshot.getValue(Device.class);
+                    devices.add(device);
+                }
+                DevicesViewModel.setDeviceListLiveData(devices);
+
+                // TODO: objects
+
+                /*
                 for (int i = 1; i <= 20; i++) {
                     Device device = new Device(i, "nameOfDevice" + i, "descriptionOfDevice" + i);
                     devices.add(device);
                 }
                 DevicesViewModel.setDeviceListLiveData(devices);
+                */
             }
 
             @Override
@@ -55,6 +74,8 @@ public class Database {
                 Log.w(TAG, "loadDevice:onCancelled", databaseError.toException());
             }
         };
-        mDatabase.addValueEventListener(valueEventListener);
+        devicesReference.addValueEventListener(valueEventListener);
+        // TODO: objects
+        //  objectsReference.addValueEventListener(valueEventListener);
     }
 }

@@ -55,27 +55,19 @@ public class DevicesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_devices, container, false);
 
-        List<String> deviceNames = new ArrayList<>();
-        List<String> deviceDescriptions = null;
+        List<Device> deviceArrayList = new ArrayList<>();
 
         DevicesViewModel devicesViewModel = new ViewModelProvider(requireActivity()).get(DevicesViewModel.class);
-        devicesViewModel.getDeviceListLiveData().observe(getActivity(), devices -> {
-            for (Device device : devices) {
-                deviceNames.add(device.getName());
-            }
-
-        });
+        devicesViewModel.getDeviceListLiveData().observe(getActivity(), deviceArrayList::addAll);
 
         RecyclerView recyclerView = view.findViewById(R.id.devices_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-
-        DevicesAdapter deviceNamesAdapter = new DevicesAdapter(deviceNames);
+        DevicesAdapter deviceNamesAdapter = new DevicesAdapter(deviceArrayList);
         recyclerView.setAdapter(deviceNamesAdapter);
 
         return view;
     }
-
 
 }

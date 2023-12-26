@@ -7,14 +7,20 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.devicemanagement.Device;
 import com.example.devicemanagement.R;
 
 import java.util.List;
 public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHolder> {
     private List<String> list;
+    private List<Device> deviceList;
 
-    public DevicesAdapter(List<String> list) {
+    /* public DevicesAdapter(List<String> list) {
         this.list = list;
+    } */
+    
+    public DevicesAdapter(List<Device> deviceList) {
+        this.deviceList = deviceList;
     }
 
     @Override
@@ -25,21 +31,29 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String product = list.get(position);
-        holder.devicesItemName.setText(product);
+/*
+        String deviceName = list.get(position);
+        holder.devicesItemName.setText(deviceName);
+ */
+        Device device = deviceList.get(position);
+        holder.devicesItemName.setText(device.getName());
+        holder.devicesItemDescription.setText(device.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        // return list.size();
+        return deviceList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView devicesItemName;
+        public TextView devicesItemDescription;
 
         public ViewHolder(View itemView) {
             super(itemView);
             devicesItemName = itemView.findViewById(R.id.DevicesItemName);
+            devicesItemDescription = itemView.findViewById(R.id.DevicesItemDescription);
         }
     }
 }
