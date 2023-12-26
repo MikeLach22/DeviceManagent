@@ -1,4 +1,4 @@
-package com.example.devicemanagement.ui;
+package com.example.devicemanagement.ui.Devices;
 
 import android.view.LayoutInflater;
 import android.view.View;
