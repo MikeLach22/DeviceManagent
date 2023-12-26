@@ -45,6 +45,6 @@ private ActivityMainBinding binding;
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        // Database.setUpDatabase();
+        Database.setUpDatabase();
     }
 }

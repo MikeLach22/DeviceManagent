@@ -1,15 +1,35 @@
 package com.example.devicemanagement;
 
-import android.graphics.Picture;
-import android.media.Image;
-import android.util.Log;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Date;
-
 public class Device {
+
+    private int id;
+    private String name;
+    private String description;
+
+    public Device() {
+        // Leerer Konstruktor wird von Firebase benötigt
+    }
+
+    public Device(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+
+/* public class Device {
     private String name;
     private String description;
     private String serialNumber;
@@ -21,8 +41,7 @@ public class Device {
     private String contactPartner;
     private Image image;
 
-
-    public void addDevice(String name, String description, String serialNumber, Date purchaseDate, int warranty, String maintenanceStatus, String locationOfDevice, String operatingInstructions, String contactPartner, Image image) {
+    public Device(String name, String description, String serialNumber, Date purchaseDate, int warranty, String maintenanceStatus, String locationOfDevice, String operatingInstructions, String contactPartner, Image image) {
         this.name = name;
         this.description = description;
         this.serialNumber = serialNumber;
@@ -33,12 +52,7 @@ public class Device {
         this.operatingInstructions = operatingInstructions;
         this.contactPartner = contactPartner;
         this.image = image;
-    }
-
-
-
-    public void deleteDevice() {
 
     }
-
 }
+*/

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_devices"
-        android:name="com.example.devicemanagement.ui.DevicesFragment"
+        android:name="com.example.devicemanagement.ui.Devices.DevicesFragment"
         android:label="@string/title_devices"
         tools:layout="@layout/fragment_devices" />
 
