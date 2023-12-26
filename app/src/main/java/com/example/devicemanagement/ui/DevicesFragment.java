@@ -3,12 +3,18 @@ package com.example.devicemanagement.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.devicemanagement.R;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +67,16 @@ public class DevicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_devices, container, false);
+        View view = inflater.inflate(R.layout.fragment_devices, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.devices_list);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        List<String> test = Arrays.asList("Device 1", "Device 2", "Device 3", "Device 4", "Device 5", "Device 6", "Device 7", "Device 8", "Device 9", "Device 10");
+        DevicesAdapter adapter = new DevicesAdapter(test);
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 }
