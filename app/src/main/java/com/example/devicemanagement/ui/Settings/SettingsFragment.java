@@ -1,4 +1,4 @@
-package com.example.devicemanagement.ui;
+package com.example.devicemanagement.ui.Settings;
 
 import android.os.Bundle;
 

@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
+private AppBarConfiguration appBarConfiguration;
 private ActivityMainBinding binding;
 
     @Override
@@ -36,7 +37,7 @@ private ActivityMainBinding binding;
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home,
                 R.id.navigation_devices,
                 R.id.navigation_settings
@@ -46,5 +47,12 @@ private ActivityMainBinding binding;
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         Database.setUpDatabase();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 }
