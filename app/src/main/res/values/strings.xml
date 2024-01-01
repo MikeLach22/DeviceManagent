@@ -3,7 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_devices">Devices</string>
     <string name="title_settings">Settings</string>
-    
+    <string name="title_add_device">Add Device</string>
+
     <!-- Home -->
     <string name="home_title_text">Next Maintenance</string>
     <!-- Maintenance -->
@@ -12,6 +13,13 @@
 
     <!-- Device -->
     <string name="device_title_text">Devices</string>
+
+    <!-- Add Device -->
+    <string name="hint_name">Name of Device</string>
+    <string name="hint_description">Description of Device</string>
+    <string name="hint_serialnumber">Serialnumber</string>
+    <string name="hint_purchase_date">Purchase Date</string>
+    <string name="hint_warranty">Warranty in Years</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -27,5 +35,7 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -1,20 +1,62 @@
 package com.example.devicemanagement;
 
-public class Device {
+import android.media.Image;
 
+import java.util.Date;
+
+public class Device {
+    // Metadata:
     private int id;
     private String name;
     private String description;
+    /*
+    private String serialNumber;
+
+    // Customer-dependent:
+    private Date purchaseDate;
+    private int warranty;
+    private String locationOfDevice;
+    private String contactPartner;
+
+    // Current:
+    private String maintenanceStatus;
+    // private Date lastMaintenanceDate;
+
+    // Big Data:
+    // private String operatingInstructions;
+    private Image image;
+
+     */
+
 
     public Device() {
         // Leerer Konstruktor wird von Firebase benötigt
     }
+
 
     public Device(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
+
+    /*
+    public Device(int id, String name, String description, String serialNumber, Date purchaseDate, int warranty, String locationOfDevice, String contactPartner, String maintenanceStatus, Image image) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.serialNumber = serialNumber;
+        this.purchaseDate = purchaseDate;
+        this.warranty = warranty;
+        this.locationOfDevice = locationOfDevice;
+        this.contactPartner = contactPartner;
+        this.maintenanceStatus = maintenanceStatus;
+        // this.lastMaintenanceDate = lastMaintenanceDate;
+        // this.operatingInstructions = operatingInstructions;
+        this.image = image;
+    }
+
+     */
 
     public int getId() {
         return id;
@@ -27,32 +69,44 @@ public class Device {
     public String getDescription() {
         return description;
     }
-}
-
-/* public class Device {
-    private String name;
-    private String description;
-    private String serialNumber;
-    private Date purchaseDate;
-    private int warranty;
-    private String maintenanceStatus;
-    private String locationOfDevice;
-    private String operatingInstructions;
-    private String contactPartner;
-    private Image image;
-
-    public Device(String name, String description, String serialNumber, Date purchaseDate, int warranty, String maintenanceStatus, String locationOfDevice, String operatingInstructions, String contactPartner, Image image) {
-        this.name = name;
-        this.description = description;
-        this.serialNumber = serialNumber;
-        this.purchaseDate = purchaseDate;
-        this.warranty = warranty;
-        this.maintenanceStatus = maintenanceStatus;
-        this.locationOfDevice = locationOfDevice;
-        this.operatingInstructions = operatingInstructions;
-        this.contactPartner = contactPartner;
-        this.image = image;
-
+/*
+    public String getSerialNumber() {
+        return serialNumber;
     }
-}
+
+    public Date getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public int getWarranty() {
+        return warranty;
+    }
+
+    public String getLocationOfDevice() {
+        return locationOfDevice;
+    }
+
+    public String getContactPartner() {
+        return contactPartner;
+    }
+
+    public String getMaintenanceStatus() {
+        return maintenanceStatus;
+    }
+
+    public Image getImage() {
+        return image;
+    }
 */
+    // TODO: Setter
+    public void setId(int id) {
+    this.id = id;
+}
+
+    // TODO: new Device to database
+    public boolean addDeviceToDatabase() {
+        Database database = new Database();
+        return database.saveDevice(this);
+    }
+
+}

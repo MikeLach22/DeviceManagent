@@ -1,4 +1,4 @@
-package com.example.devicemanagement.ui;
+package com.example.devicemanagement.ui.Home;
 
 import android.os.Bundle;
 

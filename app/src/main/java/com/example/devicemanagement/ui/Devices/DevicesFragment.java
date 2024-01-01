@@ -2,8 +2,10 @@ package com.example.devicemanagement.ui.Devices;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +16,8 @@ import android.view.ViewGroup;
 
 import com.example.devicemanagement.Device;
 import com.example.devicemanagement.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +71,27 @@ public class DevicesFragment extends Fragment {
         DevicesAdapter deviceNamesAdapter = new DevicesAdapter(deviceArrayList);
         recyclerView.setAdapter(deviceNamesAdapter);
 
+        // TODO: Make single View of Recyclerview clickable
+
+
+        // Action Button:
+        FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAnchorView(R.id.floatingActionButton)
+                        .setAction("Action", null).show();
+                */
+                NavHostFragment.findNavController(DevicesFragment.this)
+                        .navigate(R.id.action_navigation_devices_to_addDeviceFragment);
+            }
+        });
+
         return view;
     }
+
+
 
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.devicemanagement.ui.Devices.DevicesViewModel;
+import com.google.firebase.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,13 +27,17 @@ public class Database {
         return deviceListLiveData;
     }
 
+    private static int maxId = 0;
+
     final static String dbUrl = "https://device-management-a2f26-default-rtdb.europe-west1.firebasedatabase.app/";
     final static String pathStringDevices = "devices";
     final static String pathStringObjects = "objects";
+    static DatabaseReference mDatabase;
 
     public static void setUpDatabase() {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance(dbUrl).getReference();
+        mDatabase = FirebaseDatabase.getInstance(dbUrl).getReference();
 
         DatabaseReference devicesReference = mDatabase.child(pathStringDevices);
         DatabaseReference objectsReference = mDatabase.child(pathStringObjects);
@@ -40,7 +45,7 @@ public class Database {
 /*
         for (int i = 1; i <= 20; i++) {
             Device d = new Device(i, "nameOfDevice" + i, "descriptionOfDevice" + i);
-            String id = "device" + d.getId();
+            String id = String.valueOf(d.getId());
             mDatabase.child(pathStringDevices).child(id).setValue(d);
         }
 */
@@ -52,20 +57,20 @@ public class Database {
                 List<Device> devices = new ArrayList<>();
 
                 for (DataSnapshot deviceSnapshot : dataSnapshot.getChildren()) {
-                    Device device = deviceSnapshot.getValue(Device.class);
-                    devices.add(device);
+                    try {
+                        Device device = deviceSnapshot.getValue(Device.class);
+                        maxId = Math.max(maxId, device.getId());
+                        devices.add(device);
+                    }
+                    catch (Exception e) {
+                        Log.e(TAG, "onDataChange: ", e);
+                    }
                 }
                 DevicesViewModel.setDeviceListLiveData(devices);
+
+                Log.i("maxId", "Max ID onDataChange: " + maxId);
 
                 // TODO: objects
-
-                /*
-                for (int i = 1; i <= 20; i++) {
-                    Device device = new Device(i, "nameOfDevice" + i, "descriptionOfDevice" + i);
-                    devices.add(device);
-                }
-                DevicesViewModel.setDeviceListLiveData(devices);
-                */
             }
 
             @Override
@@ -78,4 +83,21 @@ public class Database {
         // TODO: objects
         //  objectsReference.addValueEventListener(valueEventListener);
     }
+
+   public boolean saveDevice(Device device) {
+       DatabaseReference databaseReference = mDatabase.child(pathStringDevices);
+       try  {
+           int id = device.getId();
+           if (id == 0) {
+               id = ++maxId;
+               device.setId(id);
+           }
+           String key = String.valueOf(device.getId());
+           databaseReference.child(key).setValue(device);
+           return true;
+       } catch (Exception e) {
+           Log.e(TAG, "saveDevice: ", e);
+           return false;
+       }
+   }
 }
