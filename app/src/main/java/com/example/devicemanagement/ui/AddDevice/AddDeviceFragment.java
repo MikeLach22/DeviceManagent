@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.media.Image;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -41,7 +43,7 @@ public class AddDeviceFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private Device deviceToEdit;
     private Device newDevice;
 
 
@@ -73,6 +75,11 @@ public class AddDeviceFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            this.deviceToEdit = getArguments().getParcelable("deviceToEdit");
+            if (deviceToEdit != null) {
+                Log.i("TAG", "Device to edit: " + deviceToEdit.getName());
+            }
         }
     }
 
@@ -84,9 +91,6 @@ public class AddDeviceFragment extends Fragment {
 
         EditText editTextName = view.findViewById(R.id.editTextName);
         EditText editTextDescription = view.findViewById(R.id.editTextDescription);
-
-
-
 /*
         Date date = new Date();
         Button selectDateButton = view.findViewById(R.id.datepicker);
@@ -112,6 +116,17 @@ public class AddDeviceFragment extends Fragment {
             }
         });
 */
+
+        if (deviceToEdit != null) {
+            ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setTitle(getString(R.string.title_edit_device));
+            }
+
+            editTextName.setText(deviceToEdit.getName());
+            editTextDescription.setText(deviceToEdit.getDescription());
+        }
+
         // Save Button:
         Button saveButton = view.findViewById(R.id.button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -124,21 +139,19 @@ public class AddDeviceFragment extends Fragment {
                 String savedMsg;
 
                 newDevice = new Device(id, name, description);
+
                 if (newDevice.addDeviceToDatabase()) {
-                    savedMsg = "Saved new Device '" + name + "'";
+                    savedMsg = getString(R.string.pop_device_saved) + " '" + name + "'";
                 } else {
-                    savedMsg = "Failed to save new Device '" + name + "'";
+                    savedMsg = getString(R.string.pop_device_fail) + " '" + name + "'";
                 }
 
                 Snackbar.make(view, savedMsg, Snackbar.LENGTH_LONG)
                         .setAnchorView(R.id.nav_view)
                         .setAction("Action", null).show();
 
-                /* TODO: Navigate back
                 NavHostFragment.findNavController(AddDeviceFragment.this)
                         .navigate(R.id.action_addDeviceFragment_to_navigation_devices);
-
-                 */
             }
         });
 

@@ -2,8 +2,7 @@ package com.example.devicemanagement.ui.Devices;
 
 import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
+    import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,10 +16,8 @@ import android.view.ViewGroup;
 import com.example.devicemanagement.Device;
 import com.example.devicemanagement.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,7 +25,9 @@ import java.util.List;
  * Use the {@link DevicesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DevicesFragment extends Fragment {
+public class DevicesFragment extends Fragment implements DevicesItemClickInterface {
+
+    List<Device> deviceArrayList = new ArrayList<>();
 
     public DevicesFragment() {
         // Required empty public constructor
@@ -59,8 +58,6 @@ public class DevicesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_devices, container, false);
 
-        List<Device> deviceArrayList = new ArrayList<>();
-
         DevicesViewModel devicesViewModel = new ViewModelProvider(requireActivity()).get(DevicesViewModel.class);
         devicesViewModel.getDeviceListLiveData().observe(getActivity(), deviceArrayList::addAll);
 
@@ -71,19 +68,14 @@ public class DevicesFragment extends Fragment {
         DevicesAdapter deviceNamesAdapter = new DevicesAdapter(deviceArrayList);
         recyclerView.setAdapter(deviceNamesAdapter);
 
-        // TODO: Make single View of Recyclerview clickable
-
+        // Make single View of Recyclerview clickable
+        deviceNamesAdapter.setClickListener(this);
 
         // Action Button:
-        FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addDeviceButton = view.findViewById(R.id.addDeviceButton);
+        addDeviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.floatingActionButton)
-                        .setAction("Action", null).show();
-                */
                 NavHostFragment.findNavController(DevicesFragment.this)
                         .navigate(R.id.action_navigation_devices_to_addDeviceFragment);
             }
@@ -93,5 +85,15 @@ public class DevicesFragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClick(int position) {
+        Device deviceToEdit = deviceArrayList.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("deviceToEdit", deviceToEdit);
 
+        NavHostFragment.findNavController(DevicesFragment.this)
+                .navigate(R.id.action_navigation_devices_to_addDeviceFragment, bundle);
+
+        Log.i("TAG", "onItemClick: " + position);
+    }
 }

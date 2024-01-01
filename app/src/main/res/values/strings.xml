@@ -4,6 +4,7 @@
     <string name="title_devices">Devices</string>
     <string name="title_settings">Settings</string>
     <string name="title_add_device">Add Device</string>
+    <string name="title_edit_device">Edit Device</string>
 
     <!-- Home -->
     <string name="home_title_text">Next Maintenance</string>
@@ -14,12 +15,15 @@
     <!-- Device -->
     <string name="device_title_text">Devices</string>
 
-    <!-- Add Device -->
+    <!-- Add / Edit Device -->
     <string name="hint_name">Name of Device</string>
     <string name="hint_description">Description of Device</string>
     <string name="hint_serialnumber">Serialnumber</string>
     <string name="hint_purchase_date">Purchase Date</string>
     <string name="hint_warranty">Warranty in Years</string>
+    
+    <string name="pop_device_saved">Saved Device</string>
+    <string name="pop_device_fail">Failed to save Device</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
