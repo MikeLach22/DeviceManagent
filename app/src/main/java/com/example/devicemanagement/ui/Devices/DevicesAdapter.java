@@ -12,15 +12,14 @@ import com.example.devicemanagement.R;
 
 import java.util.List;
 public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHolder> {
-    private List<String> list;
     private List<Device> deviceList;
-
-    /* public DevicesAdapter(List<String> list) {
-        this.list = list;
-    } */
-    
     public DevicesAdapter(List<Device> deviceList) {
         this.deviceList = deviceList;
+    }
+
+    private DevicesItemClickInterface clickListener;
+    public void setClickListener(DevicesItemClickInterface clickListener) {
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -31,18 +30,23 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-/*
-        String deviceName = list.get(position);
-        holder.devicesItemName.setText(deviceName);
- */
         Device device = deviceList.get(position);
         holder.devicesItemName.setText(device.getName());
         holder.devicesItemDescription.setText(device.getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int clickedPosition = holder.getAdapterPosition();
+                if (clickedPosition != RecyclerView.NO_POSITION && clickListener != null) {
+                    clickListener.onItemClick(clickedPosition);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        // return list.size();
         return deviceList.size();
     }
 

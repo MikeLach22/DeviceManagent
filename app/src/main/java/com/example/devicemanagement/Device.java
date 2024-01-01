@@ -1,10 +1,12 @@
 package com.example.devicemanagement;
 
 import android.media.Image;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Date;
 
-public class Device {
+public class Device implements Parcelable {
     // Metadata:
     private int id;
     private String name;
@@ -55,8 +57,42 @@ public class Device {
         // this.operatingInstructions = operatingInstructions;
         this.image = image;
     }
-
      */
+
+    protected Device(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        // Weitere Felder hier...
+    }
+
+    // Creator für die Parcelable-Erstellung
+    public static final Parcelable.Creator<Device> CREATOR = new Parcelable.Creator<Device>() {
+        @Override
+        public Device createFromParcel(Parcel in) {
+            return new Device(in);
+        }
+
+        @Override
+        public Device[] newArray(int size) {
+            return new Device[size];
+        }
+    };
+
+    // describeContents-Methode - gibt 0 zurück, es sei denn, es gibt spezielle Objekte im Parcel
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // writeToParcel-Methode - schreibt die Daten in das Parcel
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        // Weitere Felder hier...
+    }
 
     public int getId() {
         return id;
@@ -100,10 +136,17 @@ public class Device {
 */
     // TODO: Setter
     public void setId(int id) {
-    this.id = id;
-}
+        this.id = id;
+    }
 
-    // TODO: new Device to database
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public boolean addDeviceToDatabase() {
         Database database = new Database();
         return database.saveDevice(this);
