@@ -14,6 +14,13 @@
     <!-- Device -->
     <string name="device_title_text">Devices</string>
 
+    <!-- Add Device -->
+    <string name="hint_name">Name of Device</string>
+    <string name="hint_description">Description of Device</string>
+    <string name="hint_serialnumber">Serialnumber</string>
+    <string name="hint_purchase_date">Purchase Date</string>
+    <string name="hint_warranty">Warranty in Years</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

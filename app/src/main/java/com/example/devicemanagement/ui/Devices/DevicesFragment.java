@@ -71,6 +71,8 @@ public class DevicesFragment extends Fragment {
         DevicesAdapter deviceNamesAdapter = new DevicesAdapter(deviceArrayList);
         recyclerView.setAdapter(deviceNamesAdapter);
 
+        // TODO: Make single View of Recyclerview clickable
+
 
         // Action Button:
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);

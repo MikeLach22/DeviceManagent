@@ -9,6 +9,7 @@ public class Device {
     private int id;
     private String name;
     private String description;
+    /*
     private String serialNumber;
 
     // Customer-dependent:
@@ -25,11 +26,21 @@ public class Device {
     // private String operatingInstructions;
     private Image image;
 
+     */
+
 
     public Device() {
         // Leerer Konstruktor wird von Firebase benötigt
     }
 
+
+    public Device(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    /*
     public Device(int id, String name, String description, String serialNumber, Date purchaseDate, int warranty, String locationOfDevice, String contactPartner, String maintenanceStatus, Image image) {
         this.id = id;
         this.name = name;
@@ -45,6 +56,8 @@ public class Device {
         this.image = image;
     }
 
+     */
+
     public int getId() {
         return id;
     }
@@ -56,7 +69,7 @@ public class Device {
     public String getDescription() {
         return description;
     }
-
+/*
     public String getSerialNumber() {
         return serialNumber;
     }
@@ -84,9 +97,16 @@ public class Device {
     public Image getImage() {
         return image;
     }
-
+*/
     // TODO: Setter
+    public void setId(int id) {
+    this.id = id;
+}
 
     // TODO: new Device to database
+    public boolean addDeviceToDatabase() {
+        Database database = new Database();
+        return database.saveDevice(this);
+    }
 
 }

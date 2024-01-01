@@ -1,21 +1,30 @@
 package com.example.devicemanagement.ui.AddDevice;
 
 import android.app.DatePickerDialog;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.devicemanagement.Database;
+import com.example.devicemanagement.Device;
 import com.example.devicemanagement.R;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +41,9 @@ public class AddDeviceFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Device newDevice;
+
 
     public AddDeviceFragment() {
         // Required empty public constructor
@@ -70,9 +82,17 @@ public class AddDeviceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_device, container, false);
 
+        EditText editTextName = view.findViewById(R.id.editTextName);
+        EditText editTextDescription = view.findViewById(R.id.editTextDescription);
+
+
+
+/*
+        Date date = new Date();
         Button selectDateButton = view.findViewById(R.id.datepicker);
-        TextView date = view.findViewById(R.id.date);
-        date.setText("No Date Selected");
+        TextView dateView = view.findViewById(R.id.date);
+        dateView.setText(date.toString());
+
         selectDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,44 +102,43 @@ public class AddDeviceFragment extends Fragment {
                 int year = cldr.get(Calendar.YEAR);
 
                 DatePickerDialog picker = new DatePickerDialog(getContext(),
-                                                new DatePickerDialog.OnDateSetListener() {
-                                                    @Override
-                                                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                                        date.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
-                                                    }
-                }, year, month, day);
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            dateView.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
+                        }
+                    }, year, month, day);
                 picker.show();
             }
         });
-
-        //         btnChangeDate = (Button) findViewById(R.id.dateButton);
-        //        btnChangeDate.setOnClickListener(new View.OnClickListener() {
-        //            @Override
-        //            public void onClick(View v) {
-        //                final Calendar cldr = Calendar.getInstance();
-        //                int day = cldr.get(Calendar.DAY_OF_MONTH);
-        //                int month = cldr.get(Calendar.MONTH);
-        //                int year = cldr.get(Calendar.YEAR);
-        //                // date picker dialog
-        //                picker = new DatePickerDialog(MainActivity.this,
-        //                        new DatePickerDialog.OnDateSetListener() {
-        //                            @Override
-        //                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        //                                btnChangeDate.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year);
-        //                            }
-        //                        }, year, month, day);
-        //                picker.show();
-        //            }
-        //        });
-
-
+*/
         // Save Button:
         Button saveButton = view.findViewById(R.id.button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int id = 0;
+                String name = String.valueOf(editTextName.getText());
+                String description = String.valueOf(editTextDescription.getText());
+
+                String savedMsg;
+
+                newDevice = new Device(id, name, description);
+                if (newDevice.addDeviceToDatabase()) {
+                    savedMsg = "Saved new Device '" + name + "'";
+                } else {
+                    savedMsg = "Failed to save new Device '" + name + "'";
+                }
+
+                Snackbar.make(view, savedMsg, Snackbar.LENGTH_LONG)
+                        .setAnchorView(R.id.nav_view)
+                        .setAction("Action", null).show();
+
+                /* TODO: Navigate back
                 NavHostFragment.findNavController(AddDeviceFragment.this)
                         .navigate(R.id.action_addDeviceFragment_to_navigation_devices);
+
+                 */
             }
         });
 
@@ -130,4 +149,5 @@ public class AddDeviceFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
 }
