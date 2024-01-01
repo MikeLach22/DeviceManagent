@@ -25,6 +25,10 @@
     <string name="pop_device_saved">Saved Device</string>
     <string name="pop_device_fail">Failed to save Device</string>
 
+    <!-- Buttons -->
+    <string name="save">SAVE</string>
+    <string name="cancel">Cancel</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
