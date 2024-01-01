@@ -1,7 +1,5 @@
 package com.example.devicemanagement.ui.AddDevice;
 
-import android.app.DatePickerDialog;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -14,19 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.devicemanagement.Database;
 import com.example.devicemanagement.Device;
 import com.example.devicemanagement.R;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.time.Instant;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -127,19 +117,29 @@ public class AddDeviceFragment extends Fragment {
             editTextDescription.setText(deviceToEdit.getDescription());
         }
 
+        // Cancel Button:
+        Button cancelButton = view.findViewById(R.id.addDeviceCancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(AddDeviceFragment.this)
+                        .navigate(R.id.action_addDeviceFragment_to_navigation_devices);
+            }
+        });
+
+
         // Save Button:
-        Button saveButton = view.findViewById(R.id.button);
+        Button saveButton = view.findViewById(R.id.addDeviceSaveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = 0;
+                int id = deviceToEdit != null ? deviceToEdit.getId() : 0;
                 String name = String.valueOf(editTextName.getText());
                 String description = String.valueOf(editTextDescription.getText());
 
-                String savedMsg;
-
                 newDevice = new Device(id, name, description);
 
+                String savedMsg;
                 if (newDevice.addDeviceToDatabase()) {
                     savedMsg = getString(R.string.pop_device_saved) + " '" + name + "'";
                 } else {
